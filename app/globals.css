@@ -1,0 +1,421 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Manrope:wght@500;600;700;800;900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --paper: #ffffff;
+  --ink: #0a0a0a;
+}
+
+html,
+body {
+  background: var(--paper);
+  color: var(--ink);
+  scroll-behavior: smooth;
+}
+body {
+  padding-bottom: 80px;
+}
+
+::selection {
+  background: #0a0a0a;
+  color: #ffffff;
+}
+
+/* Marker highlight */
+.marker {
+  background-image: linear-gradient(120deg, #ffe27a 0%, #ff7a45 100%);
+  background-size: 100% 38%;
+  background-repeat: no-repeat;
+  background-position: 0 88%;
+  padding: 0 0.15em;
+}
+
+/* Flowing gradient text */
+.text-flow {
+  background: linear-gradient(
+    120deg,
+    #ff7a45 0%,
+    #ffe27a 25%,
+    #9be7c4 50%,
+    #6ea8ff 75%,
+    #ff7eb5 100%
+  );
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: flow 6s ease infinite;
+}
+.text-flow-warm {
+  background: linear-gradient(120deg, #ff7a45 0%, #ffe27a 50%, #ff7a45 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: flow 5s ease infinite;
+}
+.text-flow-ink {
+  background: linear-gradient(120deg, #0a0a0a 0%, #525866 50%, #0a0a0a 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: flow 6s ease infinite;
+}
+@keyframes flow {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Animated gradient border */
+.grad-border {
+  position: relative;
+}
+.grad-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1.5px;
+  border-radius: inherit;
+  background: linear-gradient(
+    120deg,
+    #ff7a45 0%,
+    #ffe27a 25%,
+    #9be7c4 50%,
+    #6ea8ff 75%,
+    #ff7eb5 100%
+  );
+  background-size: 300% 300%;
+  animation: flow 6s ease infinite;
+  -webkit-mask: linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Shine sweep CTA */
+.shine-btn {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.shine-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.35) 50%,
+    transparent 70%
+  );
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
+  animation: shine 2.4s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes shine {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Backgrounds */
+.bg-dots {
+  background-image: radial-gradient(rgba(10, 10, 10, 0.1) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+.bg-grid-light {
+  background-image: linear-gradient(rgba(10, 10, 10, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(10, 10, 10, 0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+}
+.bg-grid-dark {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+}
+
+/* Card */
+.card-surface {
+  background: #ffffff;
+  border: 1px solid #eeedeb;
+  box-shadow: 0 1px 2px rgba(15, 15, 15, 0.04),
+    0 8px 24px -8px rgba(15, 15, 15, 0.06);
+}
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 1px 2px rgba(15, 15, 15, 0.04),
+    0 24px 48px -16px rgba(15, 15, 15, 0.14);
+  border-color: #0a0a0a;
+}
+
+/* Animated icons */
+.ic {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+.group:hover .ic-rotate {
+  transform: rotate(-12deg) scale(1.1);
+}
+.group:hover .ic-bounce {
+  animation: wiggle 0.6s ease;
+}
+.group:hover .ic-spin {
+  animation: spinOnce 1.2s linear;
+}
+.ic-soft {
+  animation: pulseSoft 2.4s ease-in-out infinite;
+}
+.ic-tilt {
+  animation: tiltSwing 6s ease-in-out infinite;
+  transform-origin: center;
+}
+@keyframes spinOnce {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(-12deg);
+  }
+  75% {
+    transform: rotate(12deg);
+  }
+}
+@keyframes pulseSoft {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+@keyframes tiltSwing {
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+/* Scroll progress bar */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 60;
+  background: linear-gradient(
+    90deg,
+    #ff7a45 0%,
+    #ffe27a 30%,
+    #9be7c4 60%,
+    #6ea8ff 100%
+  );
+  background-size: 200% 100%;
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 0.2s linear;
+  animation: flow 6s ease infinite;
+}
+
+/* Word rotator */
+.rotator {
+  display: inline-grid;
+  grid-template-rows: 1fr;
+  overflow: hidden;
+  vertical-align: bottom;
+  height: 1.05em;
+}
+.rotator > span {
+  grid-row: 1;
+  grid-column: 1;
+  opacity: 0;
+  transform: translateY(120%);
+  transition: transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.35s;
+  padding: 0 0.15em;
+}
+.rotator > span.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+.rotator > span.leaving {
+  opacity: 0;
+  transform: translateY(-120%);
+}
+
+/* Reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Marquee */
+.marquee-track {
+  width: max-content;
+}
+
+/* Animated dashed line */
+.anim-dash {
+  stroke-dasharray: 6 6;
+  animation: dashAnim 8s linear infinite;
+}
+@keyframes dashAnim {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+/* FAQ accordion */
+details.faq summary {
+  list-style: none;
+  cursor: pointer;
+}
+details.faq summary::-webkit-details-marker {
+  display: none;
+}
+details.faq[open] .chev {
+  transform: rotate(45deg);
+}
+
+/* Doodle drawn */
+.doodle {
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  animation: drawDoodle 2.2s ease forwards 0.4s;
+}
+@keyframes drawDoodle {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Pop emphasis */
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.06);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.pop {
+  animation: pop 0.35s ease;
+}
+
+/* Spotlight */
+.spotlight::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  pointer-events: none;
+  z-index: -1;
+  background: radial-gradient(
+    220px 220px at var(--mx, 50%) var(--my, 30%),
+    rgba(255, 226, 122, 0.35),
+    transparent 60%
+  );
+  transition: background 0.3s ease;
+}
+
+/* Range slider */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  background: #eeedeb;
+  border-radius: 999px;
+  outline: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 22px;
+  width: 22px;
+  border-radius: 999px;
+  background: #0a0a0a;
+  border: 3px solid #fff;
+  box-shadow: 0 4px 10px rgba(15, 15, 15, 0.18);
+  cursor: pointer;
+}
+input[type="range"]::-moz-range-thumb {
+  height: 22px;
+  width: 22px;
+  border-radius: 999px;
+  background: #0a0a0a;
+  border: 3px solid #fff;
+  box-shadow: 0 4px 10px rgba(15, 15, 15, 0.18);
+  cursor: pointer;
+}
+
+/* Filter chip */
+.chip {
+  transition: all 0.2s ease;
+}
+.chip.on {
+  background: #0a0a0a;
+  color: #fff;
+  border-color: #0a0a0a;
+}
+
+/* Toast rise */
+@keyframes rise {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #fafaf9;
+}
+::-webkit-scrollbar-thumb {
+  background: #d6d3d1;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a29e;
+}

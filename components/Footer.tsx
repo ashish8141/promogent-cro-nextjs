@@ -1,4 +1,4 @@
-import { Linkedin, Github, Facebook, Instagram, Mail } from "lucide-react";
+import { Linkedin, Github, Facebook, Instagram, Mail, MapPin, Phone } from "lucide-react";
 import { LogoWordmark } from "./Logo";
 import { FIVERR_URL } from "./AnnouncementBar";
 
@@ -91,7 +91,52 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-t border-line pt-6 text-xs text-ink-600">
+        {/* Office addresses section */}
+        <div className="mt-12 pt-10 border-t border-line grid grid-cols-1 md:grid-cols-2 gap-8 text-sm">
+          <div className="flex gap-3">
+            <div className="mt-0.5 text-ink-500">
+              <MapPin size={18} />
+            </div>
+            <div>
+              <h4 className="font-semibold text-ink-950 flex items-center gap-2">
+                India Office <span className="text-xs font-normal text-ink-500">🇮🇳</span>
+              </h4>
+              <p className="mt-1.5 text-ink-600 leading-relaxed max-w-md">
+                Shilp Aaron, B-207, Sindhu Bhavan Marg, opposite Armieda Complex, Bodakdev, Ahmedabad, Gujarat 380059
+              </p>
+              <a
+                href="tel:+917016605285"
+                className="inline-flex items-center gap-1.5 mt-2 text-ink-600 hover:text-ink-950 transition"
+              >
+                <Phone size={14} className="text-ink-400" />
+                <span className="font-semibold">+91 70166 05285</span>
+              </a>
+            </div>
+          </div>
+
+          <div className="flex gap-3">
+            <div className="mt-0.5 text-ink-500">
+              <MapPin size={18} />
+            </div>
+            <div>
+              <h4 className="font-semibold text-ink-950 flex items-center gap-2">
+                US Office <span className="text-xs font-normal text-ink-500">🇺🇸</span>
+              </h4>
+              <p className="mt-1.5 text-ink-600 leading-relaxed max-w-md">
+                2810 N Church St PMB 233552, Wilmington, Delaware 19802-4447
+              </p>
+              <a
+                href="tel:+13026183557"
+                className="inline-flex items-center gap-1.5 mt-2 text-ink-600 hover:text-ink-950 transition"
+              >
+                <Phone size={14} className="text-ink-400" />
+                <span className="font-semibold">+1 302 618 3557</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-t border-line pt-6 text-xs text-ink-600">
           <div>
             © {new Date().getFullYear()} PromoGent Solutions PVT LTD. All
             rights reserved.

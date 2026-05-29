@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import CookieConsent from "@/components/CookieConsent";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   title: "PromoGent Solutions — CRO & Traffic Optimization Experts",
@@ -51,6 +52,7 @@ export default function RootLayout({
 
         {children}
         <CookieConsent />
+        <Analytics />
       </body>
     </html>
   );

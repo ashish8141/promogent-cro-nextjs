@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
   Sparkles,
@@ -8,96 +11,228 @@ import {
 import WordRotator from "./WordRotator";
 import Counter from "./Counter";
 
+const stacks = [
+  { name: "WordPress", slug: "wordpress", color: "3858E9" },
+  { name: "Shopify", slug: "shopify", color: "95BF47" },
+  { name: "Next.js", slug: "nextdotjs", color: "FFFFFF" },
+  { name: "React Native", slug: "react", color: "61DAFB" },
+  { name: "Flutter", slug: "flutter", color: "54C5F8" },
+  { name: "Node.js", slug: "nodedotjs", color: "5FA04E" },
+  { name: "Tailwind CSS", slug: "tailwindcss", color: "06B6D4" },
+  { name: "WooCommerce", slug: "woocommerce", color: "A46497" },
+  { name: "Stripe", slug: "stripe", color: "8A82F9" },
+  { name: "TypeScript", slug: "typescript", color: "3178C6" },
+  { name: "Terraform", slug: "terraform", color: "9B8AFB" },
+];
+
 export default function Hero() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [sparkles, setSparkles] = useState<{ id: number; left: string; delay: string; duration: string; scale: number }[]>([]);
+
+  useEffect(() => {
+    // Generate particles on client side to avoid hydration mismatch
+    const items = Array.from({ length: 12 }).map((_, id) => ({
+      id,
+      left: `${Math.random() * 100}%`,
+      delay: `${Math.random() * 8}s`,
+      duration: `${12 + Math.random() * 10}s`,
+      scale: 0.4 + Math.random() * 0.8,
+    }));
+    setSparkles(items);
+  }, []);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = container.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      container.style.setProperty("--mouse-x", `${x}px`);
+      container.style.setProperty("--mouse-y", `${y}px`);
+    };
+
+    container.addEventListener("mousemove", handleMouseMove);
+    return () => {
+      container.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!canvasRef.current) return;
+
+    let gradientInstance: any = null;
+    let isDestroyed = false;
+
+    // Dynamically import @firecms/neat to ensure absolute compatibility with Next.js SSR build environments
+    import("@firecms/neat").then(({ NeatGradient }) => {
+      if (isDestroyed || !canvasRef.current) return;
+
+      const config = {
+        colors: [
+          {
+            color: '#554226',
+            enabled: true,
+          },
+          {
+            color: '#03162D',
+            enabled: true,
+          },
+          {
+            color: '#002027',
+            enabled: true,
+          },
+          {
+            color: '#020210',
+            enabled: true,
+          },
+          {
+            color: '#02152A',
+            enabled: true,
+          },
+          {
+            color: '#B8D4E6',
+            enabled: false,
+          },
+        ],
+        speed: 2,
+        horizontalPressure: 3,
+        verticalPressure: 5,
+        waveFrequencyX: 1,
+        waveFrequencyY: 3,
+        waveAmplitude: 8,
+        shadows: 0,
+        highlights: 2,
+        colorBrightness: 1,
+        colorSaturation: 6,
+        wireframe: false,
+        colorBlending: 7,
+        backgroundColor: '#003FFF',
+        backgroundAlpha: 1,
+        grainScale: 2,
+        grainSparsity: 0,
+        grainIntensity: 0.175,
+        grainSpeed: 1,
+        resolution: 1,
+        yOffset: 190,
+        yOffsetWaveMultiplier: 1.8,
+        yOffsetColorMultiplier: 2,
+        yOffsetFlowMultiplier: 2.2,
+        flowDistortionA: 3.1,
+        flowDistortionB: 2.4,
+        flowScale: 1.5,
+        flowEase: 0.31,
+        flowEnabled: false,
+        enableProceduralTexture: false,
+        textureVoidLikelihood: 0.06,
+        textureVoidWidthMin: 10,
+        textureVoidWidthMax: 500,
+        textureBandDensity: 0.8,
+        textureColorBlending: 0.06,
+        textureSeed: 333,
+        textureEase: 0.8,
+        proceduralBackgroundColor: '#FFED00',
+        textureShapeTriangles: 20,
+        textureShapeCircles: 15,
+        textureShapeBars: 15,
+        textureShapeSquiggles: 10,
+        domainWarpEnabled: false,
+        domainWarpIntensity: 0,
+        domainWarpScale: 3,
+        vignetteIntensity: 0,
+        vignetteRadius: 0.8,
+        fresnelEnabled: false,
+        fresnelPower: 2,
+        fresnelIntensity: 0.5,
+        fresnelColor: '#FFFFFF',
+        iridescenceEnabled: false,
+        iridescenceIntensity: 0.5,
+        iridescenceSpeed: 1,
+        bloomIntensity: 0,
+        bloomThreshold: 0.7,
+        chromaticAberration: 0,
+      };
+
+      try {
+        gradientInstance = new NeatGradient({
+          ref: canvasRef.current,
+          ...config,
+        });
+      } catch (err) {
+        console.error("NeatGradient failed to initialize:", err);
+      }
+    });
+
+    const handleScroll = () => {
+      if (gradientInstance) {
+        gradientInstance.yOffset = window.scrollY;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      isDestroyed = true;
+      window.removeEventListener("scroll", handleScroll);
+      if (gradientInstance && typeof gradientInstance.destroy === "function") {
+        gradientInstance.destroy();
+      }
+    };
+  }, []);
+
   return (
-    <section id="hero" className="relative overflow-hidden spotlight">
-      <div aria-hidden="true" className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-grid-light" />
-        <div
-          className="absolute -top-32 -left-32 h-[520px] w-[520px] rounded-full blur-[120px] animate-blob"
-          style={{
-            background:
-              "radial-gradient(circle at 30% 30%, rgba(255,226,122,.65), transparent 60%)",
-          }}
-        />
-        <div
-          className="absolute -top-10 right-0 h-[480px] w-[480px] rounded-full blur-[120px] animate-blob [animation-delay:3s]"
-          style={{
-            background:
-              "radial-gradient(circle at 50% 50%, rgba(110,168,255,.5), transparent 60%)",
-          }}
-        />
-        <div
-          className="absolute bottom-0 left-1/3 h-[420px] w-[420px] rounded-full blur-[140px] animate-blob [animation-delay:6s]"
-          style={{
-            background:
-              "radial-gradient(circle at 50% 50%, rgba(155,231,196,.55), transparent 60%)",
-          }}
-        />
-
-        <svg
-          className="absolute -top-10 right-10 w-[420px] opacity-[0.18]"
-          viewBox="0 0 420 420"
-          fill="none"
-          style={{ animation: "spinOnce 120s linear infinite" }}
-        >
-          <circle cx="210" cy="210" r="200" stroke="#0a0a0a" />
-          <circle cx="210" cy="210" r="150" stroke="#0a0a0a" />
-          <circle cx="210" cy="210" r="100" stroke="#0a0a0a" />
-          <circle cx="210" cy="210" r="50" stroke="#0a0a0a" />
-        </svg>
-
-        <svg
-          className="absolute top-40 left-8 w-6 opacity-30"
-          viewBox="0 0 20 20"
-        >
-          <path d="M10 0v20M0 10h20" stroke="#0a0a0a" strokeWidth="1.4" />
-        </svg>
-        <svg
-          className="absolute bottom-40 right-20 w-6 opacity-30"
-          viewBox="0 0 20 20"
-        >
-          <path d="M10 0v20M0 10h20" stroke="#0a0a0a" strokeWidth="1.4" />
-        </svg>
-
-        <svg
-          className="absolute top-[44%] left-[44%] w-[140px] opacity-50 hidden lg:block"
-          viewBox="0 0 200 100"
-          fill="none"
-        >
-          <path
-            className="doodle"
-            d="M2 50 Q 80 90, 120 40 T 198 30"
-            stroke="#0a0a0a"
-            strokeWidth="1.5"
-            fill="none"
-            strokeLinecap="round"
+    <section id="hero" ref={containerRef} className="relative hero-dark">
+      {/* Background layers */}
+      <div aria-hidden="true" className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        {/* Neat Fluid Gradient WebGL Canvas */}
+        <div className="absolute inset-0 opacity-80 overflow-hidden">
+          <canvas
+            ref={canvasRef}
+            className="w-full h-full"
+            style={{ display: "block", width: "100%", height: "100%" }}
           />
-          <path
-            d="M180 20 L198 30 L188 48"
-            stroke="#0a0a0a"
-            strokeWidth="1.5"
-            fill="none"
-            strokeLinecap="round"
-          />
-        </svg>
+        </div>
+
+        {/* Mouse spotlight glows */}
+        <div className="hero-spotlight" />
+        <div className="hero-spotlight-cyan" />
+
+        {/* vertical column rails */}
+        <div className="absolute inset-0 hero-dark-rails" />
+
+        {/* soft grain */}
+        <div className="absolute inset-0 hero-dark-grain" />
+
+
       </div>
 
-      <div className="mx-auto max-w-7xl px-6 lg:px-10 pt-16 pb-24 lg:pt-24 lg:pb-32">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-10 pt-16 pb-24 lg:pt-24 lg:pb-32">
         <div className="grid lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-7">
-            <a
-              href="https://www.fiverr.com/chirag8838"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-line bg-white/80 backdrop-blur px-4 py-1.5 text-xs font-medium text-ink-700 hover:border-ink-950 hover:text-ink-950 transition"
-            >
-              <Sparkles size={14} className="text-ink-950" />
-              Top-Rated on Fiverr ·{" "}
-              <b className="text-ink-950">6,200+</b> reviews · 7+ yrs
-            </a>
+            <div className="flex flex-wrap gap-3">
+              <a
+                href="https://www.fiverr.com/chirag8838"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] backdrop-blur px-4 py-1.5 text-xs font-medium text-white/85 hover:border-white/40 hover:bg-white/[0.10] hover:text-white transition"
+              >
+                <Sparkles size={14} className="text-accent-lemon" />
+                Top-Rated on Fiverr · <b className="text-white">6,200+</b> reviews
+              </a>
+              <a
+                href="https://clutch.co/profile/promogent"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] backdrop-blur px-4 py-1.5 text-xs font-medium text-white/85 hover:border-white/40 hover:bg-white/[0.10] hover:text-white transition"
+              >
+                <span className="text-accent-lemon">★★★★★</span>
+                <b className="text-white">5.0</b> Stars on Clutch
+              </a>
+            </div>
 
-            <h1 className="mt-6 font-display text-5xl sm:text-6xl lg:text-[5.2rem] font-extrabold leading-[1.02] tracking-tight text-ink-950">
+            <h1 className="mt-6 font-display text-5xl sm:text-6xl lg:text-[5.2rem] font-extrabold leading-[1.02] tracking-tight text-white">
               <span className="block">We hunt your</span>
               <span className="block">
                 <WordRotator />
@@ -113,7 +248,7 @@ export default function Hero() {
                   >
                     <path
                       d="M2 8 Q 50 2, 100 7 T 198 5"
-                      stroke="#0a0a0a"
+                      stroke="#ffffff"
                       strokeWidth="2.5"
                       fill="none"
                       strokeLinecap="round"
@@ -124,9 +259,9 @@ export default function Hero() {
               </span>
             </h1>
 
-            <p className="mt-7 text-lg sm:text-xl text-ink-600 max-w-2xl leading-relaxed">
+            <p className="mt-7 text-lg sm:text-xl text-slate-300/90 max-w-2xl leading-relaxed">
               A{" "}
-              <span className="text-ink-950 font-semibold underline decoration-2 decoration-ink-950 underline-offset-4">
+              <span className="text-white font-semibold underline decoration-2 decoration-accent-sky underline-offset-4">
                 CRO + traffic studio
               </span>{" "}
               for SMBs done guessing. We audit your funnel, kill what&apos;s
@@ -134,23 +269,26 @@ export default function Hero() {
               retainers. No fluff.
             </p>
 
-            <div className="mt-10 flex flex-wrap gap-3">
-              <a
-                href="#calculator"
-                className="shine-btn group relative inline-flex items-center gap-2 rounded-full bg-ink-950 text-white px-7 py-3.5 text-base font-semibold hover:bg-ink-800 transition shadow-lift"
-              >
-                Calculate my revenue leak
-                <ArrowRight
-                  size={18}
-                  className="group-hover:translate-x-1 transition-transform"
-                />
-                <span className="absolute -top-2 -right-2 rounded-full bg-accent-lemon text-ink-950 text-[10px] font-bold px-2 py-0.5 border border-ink-950">
-                  LIVE
-                </span>
-              </a>
+            <div className="mt-10 flex flex-wrap gap-4 relative z-10">
+              <div className="relative group overflow-visible">
+                <div className="absolute -inset-0.5 rounded-full bg-gradient-to-r from-accent-warm to-accent-sky opacity-25 blur-md group-hover:opacity-50 transition duration-500" />
+                <a
+                  href="#calculator"
+                  className="shine-btn relative inline-flex items-center gap-2 rounded-full bg-white text-ink-950 px-7 py-3.5 text-base font-semibold hover:bg-slate-100 transition shadow-lift overflow-visible"
+                >
+                  Calculate my revenue leak
+                  <ArrowRight
+                    size={18}
+                    className="group-hover:translate-x-1 transition-transform"
+                  />
+                  <span className="absolute -top-2 -right-2 rounded-full bg-accent-lemon text-ink-950 text-[10px] font-bold px-2 py-0.5 border border-ink-950">
+                    LIVE
+                  </span>
+                </a>
+              </div>
               <a
                 href="#wins"
-                className="inline-flex items-center gap-2 rounded-full border border-ink-950 bg-white px-7 py-3.5 text-base font-semibold text-ink-950 hover:bg-paper-50 transition"
+                className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/[0.06] backdrop-blur px-7 py-3.5 text-base font-semibold text-white hover:bg-white/[0.12] hover:border-white/50 transition"
               >
                 Show me the receipts
               </a>
@@ -158,26 +296,26 @@ export default function Hero() {
 
             <div className="mt-12 grid grid-cols-3 gap-6 max-w-2xl">
               <div>
-                <div className="font-display text-4xl font-extrabold text-flow">
+                <div className="font-display text-4xl font-extrabold text-flow-cool">
                   <Counter to={47} prefix="+" suffix="%" />
                 </div>
-                <div className="mt-1 text-xs text-ink-600">
+                <div className="mt-1 text-xs text-white/60">
                   conversion lift, avg.
                 </div>
               </div>
               <div>
-                <div className="font-display text-4xl font-extrabold text-flow">
+                <div className="font-display text-4xl font-extrabold text-flow-cool">
                   <Counter to={2.8} decimals={1} suffix="×" />
                 </div>
-                <div className="mt-1 text-xs text-ink-600">
+                <div className="mt-1 text-xs text-white/60">
                   ROAS we ship, avg.
                 </div>
               </div>
               <div>
-                <div className="font-display text-4xl font-extrabold text-flow">
+                <div className="font-display text-4xl font-extrabold text-flow-cool">
                   <Counter to={14} prefix="<" suffix="d" />
                 </div>
-                <div className="mt-1 text-xs text-ink-600">
+                <div className="mt-1 text-xs text-white/60">
                   to your first win
                 </div>
               </div>
@@ -214,7 +352,7 @@ export default function Hero() {
                 trend="-70%"
               />
 
-              <div className="relative card-surface rounded-3xl p-6 shadow-lift">
+              <div className="relative card-surface rounded-3xl p-6 shadow-lift ring-1 ring-white/10">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <div className="h-2.5 w-2.5 rounded-full bg-red-300" />
@@ -282,40 +420,26 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="relative border-y border-line bg-white overflow-hidden">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10 py-5 flex items-center gap-6">
-          <span className="text-[10px] uppercase tracking-[0.25em] text-ink-600 shrink-0 hidden md:block">
+      {/* Stacks logo marquee — dark band */}
+      <div className="relative z-10 border-t border-white/10 bg-black/30 backdrop-blur-sm overflow-hidden">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10 py-6 flex items-center gap-6">
+          <span className="text-[10px] uppercase tracking-[0.25em] text-white/40 shrink-0 hidden md:block">
             Stacks we ship ·
           </span>
           <div className="relative flex-1 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
-            <div className="marquee-track flex items-center gap-12 animate-marquee whitespace-nowrap text-ink-700 font-display font-bold text-lg">
+            <div className="marquee-track flex items-center gap-14 animate-marquee whitespace-nowrap">
               {Array.from({ length: 2 }).map((_, i) => (
-                <span key={i} className="flex items-center gap-12">
-                  {[
-                    "WordPress",
-                    "·",
-                    "Shopify",
-                    "·",
-                    "Next.js",
-                    "·",
-                    "React Native",
-                    "·",
-                    "Flutter",
-                    "·",
-                    "AWS",
-                    "·",
-                    "Node.js",
-                    "·",
-                    "Tailwind",
-                    "·",
-                    "Hydrogen",
-                    "·",
-                    "WooCommerce",
-                    "·",
-                    "Terraform",
-                    "·",
-                  ].map((t, j) => (
-                    <span key={j}>{t}</span>
+                <span key={i} className="flex items-center gap-14">
+                  {stacks.map((s, j) => (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      key={`${i}-${j}`}
+                      src={`https://cdn.simpleicons.org/${s.slug}/${s.color}`}
+                      alt={s.name}
+                      title={s.name}
+                      className="h-7 w-auto opacity-80 hover:opacity-100 transition shrink-0"
+                      loading="lazy"
+                    />
                   ))}
                 </span>
               ))}
@@ -342,7 +466,7 @@ function FloatingCard({
 }) {
   return (
     <div
-      className={`card-surface rounded-2xl px-4 py-3 w-[220px] ${className ?? ""}`}
+      className={`card-surface rounded-2xl px-4 py-3 w-[220px] ring-1 ring-white/10 ${className ?? ""}`}
     >
       <div className="flex items-center gap-2 text-xs text-ink-600">
         {icon}

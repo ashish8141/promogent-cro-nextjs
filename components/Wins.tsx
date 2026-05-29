@@ -1,67 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import Counter from "./Counter";
-
-const wins = [
-  {
-    brand: "Glow & Co.",
-    cat: "Shopify · DTC",
-    tag: "CRO",
-    sub: "eCom",
-    headline: "Conversion 1.6% → 4.2%",
-    detail:
-      "Hero rebuild, PDP A/B testing, checkout shortened to 2 steps. Same traffic, 2.6× revenue in 6 weeks.",
-  },
-  {
-    brand: "NorthStack",
-    cat: "AWS · SaaS",
-    tag: "Cloud",
-    headline: "-38% cloud spend",
-    detail:
-      "Multi-account landing zone, right-sized EKS, FinOps guardrails. Zero downtime migration.",
-  },
-  {
-    brand: "Brewly",
-    cat: "WordPress · D2C coffee",
-    tag: "Web",
-    sub: "eCom",
-    headline: "+311% CTA CTR",
-    detail:
-      "Hero rewrite, copy testing and Core Web Vitals fixes. LCP from 4.1s to 1.2s.",
-  },
-  {
-    brand: "PlateUp",
-    cat: "React Native · iOS+Android",
-    tag: "Mobile",
-    headline: "4.8★ rating, 220k installs",
-    detail:
-      "One codebase, two stores. Crash-free sessions >99.6%. OTA updates on day-zero.",
-  },
-  {
-    brand: "Lumen Health",
-    cat: "Next.js · B2B SaaS",
-    tag: "Web",
-    headline: "CAC payback 41 → 19 days",
-    detail:
-      "New hero, pricing page rewrite, intent-based routing. CAC payback halved in one quarter.",
-  },
-  {
-    brand: "KartKart",
-    cat: "Shopify · DTC",
-    tag: "CRO",
-    sub: "eCom",
-    headline: "AOV ₹1,820 → ₹2,510",
-    detail:
-      "Cross-sells, free-ship threshold, bundle PDP. AOV up 38% with the same traffic mix.",
-  },
-];
-
-const filters = ["All", "CRO", "Cloud", "Web", "Mobile", "eCom"] as const;
-type Filter = (typeof filters)[number];
+import { wins, winFilters, type WinFilter } from "@/lib/wins";
 
 export default function Wins() {
-  const [filter, setFilter] = useState<Filter>("All");
+  const [filter, setFilter] = useState<WinFilter>("All");
   const list = wins.filter(
     (w) => filter === "All" || w.tag === filter || w.sub === filter
   );
@@ -93,16 +39,16 @@ export default function Wins() {
               Recent <span className="marker">client wins.</span>
             </h2>
           </div>
-          <a
-            href="#contact"
+          <Link
+            href="/wins"
             className="inline-flex items-center gap-2 text-sm font-semibold text-ink-950 underline underline-offset-4 hover:no-underline"
           >
             Read full case studies →
-          </a>
+          </Link>
         </div>
 
         <div className="mt-8 flex flex-wrap gap-2">
-          {filters.map((f) => (
+          {winFilters.map((f) => (
             <button
               key={f}
               type="button"
@@ -120,9 +66,10 @@ export default function Wins() {
 
         <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {list.map((w) => (
-            <article
+            <Link
               key={w.brand}
-              className="group card-surface card-hover rounded-2xl p-6 relative overflow-hidden"
+              href={`/wins/${w.slug}`}
+              className="group card-surface card-hover rounded-2xl p-6 relative overflow-hidden block"
             >
               <div
                 aria-hidden="true"
@@ -151,12 +98,16 @@ export default function Wins() {
                   <span className="font-display font-bold text-ink-950">
                     {w.brand}
                   </span>
-                  <span className="text-sm text-ink-600 group-hover:text-ink-950 group-hover:translate-x-0.5 transition">
-                    Read story →
+                  <span className="inline-flex items-center gap-1 text-sm text-ink-600 group-hover:text-ink-950 group-hover:gap-2 transition-all">
+                    Read story
+                    <ArrowUpRight
+                      size={14}
+                      className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+                    />
                   </span>
                 </div>
               </div>
-            </article>
+            </Link>
           ))}
         </div>
 

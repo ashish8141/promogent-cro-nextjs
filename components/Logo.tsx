@@ -1,35 +1,11 @@
 export function LogoWordmark({ className = "h-7 w-auto" }: { className?: string }) {
   return (
-    <svg
-      viewBox="0 0 420 64"
-      fill="currentColor"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-label="PROMOGENT"
-      role="img"
+    <img
+      src="/logo.png"
+      alt="PROMOGENT"
       className={className}
-    >
-      <text
-        x="0"
-        y="49"
-        fontFamily="'Manrope','Inter',system-ui,sans-serif"
-        fontWeight="900"
-        fontSize="56"
-        letterSpacing="-2.2"
-      >
-        PROMOGENT
-      </text>
-      {/* Square notch on the first O */}
-      <rect
-        x="119"
-        y="14"
-        width="10"
-        height="10"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="3"
-        strokeLinejoin="miter"
-      />
-    </svg>
+      style={{ objectFit: "contain" }}
+    />
   );
 }
 

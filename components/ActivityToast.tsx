@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 const events = [
   {
-    who: "Riya · Bangalore",
+    who: "Sarah · Chicago",
     what: "booked a free revenue-leak audit",
     ago: "just now",
   },
@@ -14,14 +14,19 @@ const events = [
     ago: "3m ago",
   },
   {
+    who: "David · New York",
+    what: "booked a free revenue-leak audit",
+    ago: "5m ago",
+  },
+  {
     who: "Arjun · Mumbai",
     what: "started an AWS migration scoping call",
     ago: "7m ago",
   },
   {
-    who: "Priya · Delhi",
-    what: "unlocked her free funnel teardown",
-    ago: "12m ago",
+    who: "Emily · San Francisco",
+    what: "booked a free revenue-leak audit",
+    ago: "9m ago",
   },
   {
     who: "Jon · London",

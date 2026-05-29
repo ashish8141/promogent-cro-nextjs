@@ -5,13 +5,13 @@ import { Menu, X, ArrowRight } from "lucide-react";
 import { LogoWordmark } from "./Logo";
 
 const links = [
-  { href: "#symptoms", label: "Symptoms" },
-  { href: "#calculator", label: "ROI calculator" },
-  { href: "#services", label: "Services" },
-  { href: "#wins", label: "Wins" },
-  { href: "#compare", label: "Why us" },
-  { href: "#team", label: "Team" },
-  { href: "#faq", label: "FAQ" },
+  { href: "/#symptoms", label: "Symptoms" },
+  { href: "/#calculator", label: "ROI calculator" },
+  { href: "/#services", label: "Services" },
+  { href: "/#wins", label: "Wins" },
+  { href: "/#compare", label: "Why us" },
+  { href: "/#team", label: "Team" },
+  { href: "/#faq", label: "FAQ" },
 ];
 
 export default function Navbar() {
@@ -20,7 +20,7 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-40 backdrop-blur-xl bg-white/85 border-b border-line">
       <nav className="mx-auto max-w-7xl px-6 lg:px-10 h-16 flex items-center justify-between">
-        <a href="#" className="flex items-center gap-3 group text-ink-950">
+        <a href="/" className="flex items-center gap-3 group text-ink-950">
           <LogoWordmark className="h-7 w-auto" />
         </a>
 
@@ -36,7 +36,7 @@ export default function Navbar() {
 
         <div className="hidden md:flex items-center gap-3">
           <a
-            href="#contact"
+            href="/#contact"
             className="magnet shine-btn inline-flex items-center gap-2 rounded-full bg-ink-950 text-white px-5 py-2 text-sm font-semibold hover:bg-ink-800 transition"
           >
             Book a free audit
@@ -69,7 +69,7 @@ export default function Navbar() {
             ))}
             <li>
               <a
-                href="#contact"
+                href="/#contact"
                 className="block mt-2 rounded-full bg-ink-950 text-white px-5 py-2 text-center text-sm font-semibold"
               >
                 Book a free audit

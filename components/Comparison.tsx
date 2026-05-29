@@ -1,3 +1,6 @@
+import { Check, X, Minus, Sparkles } from "lucide-react";
+import { LogoMark } from "./Logo";
+
 const rows = [
   {
     label: "Outcomes tied to revenue",
@@ -71,53 +74,90 @@ export default function Comparison() {
           </p>
         </div>
 
-        <div className="mt-12 overflow-x-auto">
-          <table className="w-full min-w-[720px] border-separate border-spacing-0 text-sm">
+        <div className="mt-16 overflow-x-auto rounded-3xl border border-line/75 shadow-lift bg-white/70 backdrop-blur-md">
+          <table className="w-full min-w-[800px] border-separate border-spacing-0 text-sm">
             <thead>
               <tr className="text-left">
-                <th className="p-5 font-medium text-ink-600 w-1/3"></th>
-                <th className="p-5 bg-ink-950 text-white font-display text-base rounded-t-2xl border-x border-t border-ink-950">
-                  <div className="flex items-center gap-2">
-                    <span className="inline-flex h-6 w-6 items-center justify-center rounded-md bg-white text-ink-950 text-xs font-bold">
-                      P
-                    </span>{" "}
-                    PromoGent
+                <th className="p-6 font-semibold text-ink-600 w-1/3 bg-paper-50/50 border-b border-line/60 align-top pt-8">
+                  Feature / Capability
+                </th>
+                <th className="p-6 bg-ink-950 text-white font-display text-base border-x border-ink-900 relative shadow-2xl align-top">
+                  <div className="flex flex-col gap-2.5 items-start">
+                    <div>
+                      <span className="inline-flex items-center gap-1 bg-gradient-to-r from-accent-warm to-amber-500 text-white text-[9px] font-black tracking-widest uppercase px-3 py-1 rounded-full shadow-md animate-pulse">
+                        <Sparkles size={9} /> Recommended Partner
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2.5">
+                      <div className="h-7 w-7 grid place-items-center rounded-lg bg-white/10 text-accent-mint backdrop-blur">
+                        <LogoMark className="w-4 h-4" />
+                      </div>
+                      <span className="font-extrabold tracking-tight text-lg">PromoGent</span>
+                    </div>
                   </div>
                 </th>
-                <th className="p-5 font-medium text-ink-700 bg-white border-t border-x border-line rounded-t-2xl">
-                  Cheap freelancers
+                <th className="p-6 font-semibold text-ink-800 bg-paper-50/80 border-b border-line/60 border-t border-r border-line/60 align-top pt-14">
+                  Cheap Freelancers
                 </th>
-                <th className="p-5 font-medium text-ink-700 bg-white border-t border-x border-line rounded-t-2xl">
-                  Big agencies
+                <th className="p-6 font-semibold text-ink-800 bg-paper-50/80 border-b border-line/60 border-t border-r border-line/60 align-top pt-14">
+                  Big Agencies
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="divide-y divide-line/45">
               {rows.map((r, i) => {
                 const last = i === rows.length - 1;
                 return (
-                  <tr key={r.label}>
-                    <td className="p-5 border-b border-line text-ink-700 font-medium">
+                  <tr key={r.label} className="group hover:bg-paper-50/40 transition-colors duration-150">
+                    <td className="p-6 text-ink-950 font-bold border-r border-line/45 bg-white/40">
                       {r.label}
                     </td>
+                    
+                    {/* US (PromoGent) Column */}
                     <td
-                      className={`p-5 border-x border-ink-950 bg-ink-950 text-white ${
-                        last ? "rounded-b-2xl border-b" : "border-b"
+                      className={`p-6 border-x border-ink-900 bg-ink-950 text-white relative ${
+                        last ? "border-b border-ink-900 shadow-[0_8px_30px_rgb(0,0,0,0.12)]" : ""
                       }`}
                     >
                       {r.highlight ? (
-                        <b className="text-accent-lemon">{r.us}</b>
-                      ) : r.bold ? (
-                        <span className="font-bold">✓ {r.us}</span>
+                        <div className="flex items-center gap-2.5">
+                          <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent-lemon/20 text-accent-lemon ring-4 ring-accent-lemon/10">
+                            <Sparkles size={12} className="stroke-[2.5]" />
+                          </div>
+                          <span className="font-extrabold text-accent-lemon text-[15px] bg-accent-lemon/10 border border-accent-lemon/25 px-2.5 py-1 rounded-lg">
+                            {r.us}
+                          </span>
+                        </div>
                       ) : (
-                        r.us
+                        <div className="flex items-center gap-2.5">
+                          <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent-mint/20 text-accent-mint">
+                            <Check size={12} className="stroke-[3]" />
+                          </div>
+                          <span className={`font-semibold text-white ${r.bold ? "text-accent-mint" : ""}`}>
+                            {r.us}
+                          </span>
+                        </div>
                       )}
                     </td>
-                    <td className="p-5 border-b border-line bg-white">
-                      {r.cheap}
+
+                    {/* Cheap Freelancers Column */}
+                    <td className="p-6 text-ink-600 bg-white/30 border-r border-line/45">
+                      <div className="flex items-center gap-2.5">
+                        <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-paper-100 text-ink-400">
+                          <Minus size={11} className="stroke-[2.5]" />
+                        </div>
+                        <span className="font-medium text-ink-600">{r.cheap}</span>
+                      </div>
                     </td>
-                    <td className="p-5 border-b border-line bg-white">
-                      {r.big}
+
+                    {/* Big Agencies Column */}
+                    <td className="p-6 text-ink-600 bg-white/30">
+                      <div className="flex items-center gap-2.5">
+                        <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-paper-100 text-ink-400">
+                          <X size={11} className="stroke-[2.5]" />
+                        </div>
+                        <span className="font-medium text-ink-600">{r.big}</span>
+                      </div>
                     </td>
                   </tr>
                 );

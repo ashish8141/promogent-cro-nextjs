@@ -41,20 +41,6 @@ export default function Symptoms() {
       id="symptoms"
       className="relative py-24 lg:py-32 overflow-hidden"
     >
-      <svg
-        aria-hidden="true"
-        className="absolute -top-10 left-1/2 -translate-x-1/2 w-[1100px] opacity-[0.18]"
-        viewBox="0 0 1100 200"
-        fill="none"
-      >
-        <path
-          className="anim-dash"
-          d="M0 100 Q 275 0, 550 100 T 1100 100"
-          stroke="#0a0a0a"
-          strokeWidth="1.4"
-          fill="none"
-        />
-      </svg>
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
         <div className="max-w-3xl">

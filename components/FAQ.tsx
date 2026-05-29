@@ -13,7 +13,7 @@ const faqs = [
   },
   {
     q: "How is pricing structured?",
-    a: "SMB engagements start at $899 for a one-time audit and fix sprint. Ongoing CRO retainers are scoped per traffic volume. Enterprise AWS work is project- or retainer-based.",
+    a: "SMB engagements start at $299 for a one-time audit and fix sprint. Ongoing CRO retainers are scoped per traffic volume. Enterprise AWS work is project- or retainer-based.",
   },
   {
     q: "Do you work with international clients?",

@@ -3,20 +3,6 @@ import { Check, Building2, Rocket, ArrowRight } from "lucide-react";
 export default function Tracks() {
   return (
     <section id="tracks" className="relative py-24 lg:py-32 overflow-hidden">
-      <svg
-        aria-hidden="true"
-        className="absolute -top-20 left-1/2 -translate-x-1/2 w-[1100px] opacity-[0.20]"
-        viewBox="0 0 1100 200"
-        fill="none"
-      >
-        <path
-          className="anim-dash"
-          d="M0 100 Q 275 0, 550 100 T 1100 100"
-          stroke="#0a0a0a"
-          strokeWidth="1.4"
-          fill="none"
-        />
-      </svg>
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
         <div className="max-w-3xl">
@@ -87,7 +73,7 @@ export default function Tracks() {
                 <div>
                   <div className="text-xs text-ink-600">Starts from</div>
                   <div className="font-display text-2xl font-bold text-flow-ink">
-                    $899{" "}
+                    $299{" "}
                     <span className="text-sm text-ink-600 font-normal">
                       / engagement
                     </span>

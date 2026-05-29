@@ -16,8 +16,8 @@ const team = [
   { name: "Khushi Prajapati", role: "UX/UI & Graphics Designer", slug: "khushi-prajapati", ext: "webp", linkedin: "https://www.linkedin.com/in/khushi-prajapati-451371176/", bg: "linear-gradient(135deg,#a78bfa,#ff7eb5)" },
   { name: "Yash Barot", role: "Shopify & WordPress Developer", slug: "yash-barot", ext: "webp", linkedin: "https://www.linkedin.com/in/yash-barot-1903ab227/", bg: "linear-gradient(135deg,#ff7a45,#ffe27a)" },
   { name: "Janvi Goranni", role: "Business Development Executive", slug: "janvi-goranni", ext: "webp", linkedin: "https://www.linkedin.com/in/janvi-gorani/", bg: "linear-gradient(135deg,#ffe27a,#ff7a45)" },
-  { name: "Mansi Jethudi", role: "Digital Marketer", slug: "mansi-jethudi", ext: "webp", bg: "linear-gradient(135deg,#9be7c4,#6ea8ff)" },
-  { name: "Mansi Purohit", role: "Shopify Developer", slug: "mansi-purohit", ext: "webp", bg: "linear-gradient(135deg,#ff7eb5,#a78bfa)" },
+  { name: "Mansi Jethudi", role: "Digital Marketer", slug: "mansi-jethudi", ext: "webp", linkedin: "https://www.linkedin.com/in/mansi-jethudi-aab880256/", bg: "linear-gradient(135deg,#9be7c4,#6ea8ff)" },
+  { name: "Mansi Purohit", role: "Shopify Developer", slug: "mansi-purohit", ext: "webp", linkedin: "https://www.linkedin.com/in/mansi-purohit2612/", bg: "linear-gradient(135deg,#ff7eb5,#a78bfa)" },
 ];
 
 const office = [

@@ -1,20 +1,21 @@
 "use client";
 
 import { useState } from "react";
+import { Linkedin } from "lucide-react";
 
 /**
  * Team and Office section with high-fidelity circular avatar grid and premium styles.
  */
 
 const team = [
-  { name: "Chirag Patel", role: "Founder & Lead Engineer", slug: "chirag-patel", ext: "png", bg: "linear-gradient(135deg,#ffe27a,#ff7a45)" },
-  { name: "Ashish Jat", role: "Senior Cloud & Full-Stack Architect", slug: "ashish-jat", ext: "jpg", bg: "linear-gradient(135deg,#9be7c4,#6ea8ff)" },
-  { name: "Gaurav Jat", role: "CRO & Web Performance Lead", slug: "gaurav-jat", ext: "webp", bg: "linear-gradient(135deg,#ffe27a,#ff7a45)" },
-  { name: "Vaishali Pitroda", role: "Sr. UX/UI Designer", slug: "vaishali-pitroda", ext: "webp", bg: "linear-gradient(135deg,#ff7eb5,#a78bfa)" },
-  { name: "Ekta Jesani", role: "Sr. Content Writer & Strategist", slug: "ekta-jesani", ext: "webp", bg: "linear-gradient(135deg,#6ea8ff,#9be7c4)" },
-  { name: "Khushi Prajapati", role: "UX/UI & Graphics Designer", slug: "khushi-prajapati", ext: "webp", bg: "linear-gradient(135deg,#a78bfa,#ff7eb5)" },
-  { name: "Yash Barot", role: "Shopify & WordPress Developer", slug: "yash-barot", ext: "webp", bg: "linear-gradient(135deg,#ff7a45,#ffe27a)" },
-  { name: "Janvi Goranni", role: "Business Development Executive", slug: "janvi-goranni", ext: "webp", bg: "linear-gradient(135deg,#ffe27a,#ff7a45)" },
+  { name: "Chirag Patel", role: "Founder & Lead Engineer", slug: "chirag-patel", ext: "png", linkedin: "https://www.linkedin.com/in/chirag8838/", bg: "linear-gradient(135deg,#ffe27a,#ff7a45)" },
+  { name: "Ashish Jat", role: "Senior Cloud & Full-Stack Architect", slug: "ashish-jat", ext: "jpg", linkedin: "https://www.linkedin.com/in/ashish-jat-7b1ab396/", bg: "linear-gradient(135deg,#9be7c4,#6ea8ff)" },
+  { name: "Gaurav Jat", role: "CRO & Web Performance Lead", slug: "gaurav-jat", ext: "webp", linkedin: "https://www.linkedin.com/in/gaurav-jat/", bg: "linear-gradient(135deg,#ffe27a,#ff7a45)" },
+  { name: "Vaishali Pitroda", role: "Sr. UX/UI Designer", slug: "vaishali-pitroda", ext: "webp", linkedin: "https://www.linkedin.com/in/vaishali-pitroda-6906b412b/", bg: "linear-gradient(135deg,#ff7eb5,#a78bfa)" },
+  { name: "Ekta Jesani", role: "Sr. Content Writer & Strategist", slug: "ekta-jesani", ext: "webp", linkedin: "https://www.linkedin.com/in/ekta-jesani-contentwriter2310/", bg: "linear-gradient(135deg,#6ea8ff,#9be7c4)" },
+  { name: "Khushi Prajapati", role: "UX/UI & Graphics Designer", slug: "khushi-prajapati", ext: "webp", linkedin: "https://www.linkedin.com/in/khushi-prajapati-451371176/", bg: "linear-gradient(135deg,#a78bfa,#ff7eb5)" },
+  { name: "Yash Barot", role: "Shopify & WordPress Developer", slug: "yash-barot", ext: "webp", linkedin: "https://www.linkedin.com/in/yash-barot-1903ab227/", bg: "linear-gradient(135deg,#ff7a45,#ffe27a)" },
+  { name: "Janvi Goranni", role: "Business Development Executive", slug: "janvi-goranni", ext: "webp", linkedin: "https://www.linkedin.com/in/janvi-gorani/", bg: "linear-gradient(135deg,#ffe27a,#ff7a45)" },
   { name: "Mansi Jethudi", role: "Digital Marketer", slug: "mansi-jethudi", ext: "webp", bg: "linear-gradient(135deg,#9be7c4,#6ea8ff)" },
   { name: "Mansi Purohit", role: "Shopify Developer", slug: "mansi-purohit", ext: "webp", bg: "linear-gradient(135deg,#ff7eb5,#a78bfa)" },
 ];
@@ -118,11 +119,22 @@ export default function Team() {
                   alt={`${m.name} — ${m.role}`}
                   bg={m.bg}
                 />
-                <div className="mt-4">
+                <div className="mt-4 flex flex-col items-center">
                   <h4 className="text-base font-bold text-ink-950 leading-snug tracking-tight">
                     {m.name}
                   </h4>
                   <p className="text-xs text-ink-600 mt-1.5 font-medium leading-relaxed">{m.role}</p>
+                  {m.linkedin && (
+                    <a
+                      href={m.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-3.5 h-7 w-7 rounded-full border border-line bg-paper-50 hover:bg-white hover:border-ink-950 text-ink-700 hover:text-ink-950 grid place-items-center transition-all duration-300 shadow-soft"
+                      title={`${m.name}'s LinkedIn Profile`}
+                    >
+                      <Linkedin size={13} />
+                    </a>
+                  )}
                 </div>
               </div>
             </article>
